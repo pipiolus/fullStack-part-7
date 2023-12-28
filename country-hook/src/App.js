@@ -27,7 +27,7 @@ const useCountry = (name) => {
         .then((res) => {
           setCountry(res.data, (res.data.found = true));
         })
-        .catch((error) => setCountry(error));
+        .catch((error) => setCountry(error.response.data.error));
     }
   }, [name]);
 
