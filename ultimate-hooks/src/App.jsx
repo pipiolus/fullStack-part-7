@@ -8,10 +8,17 @@ const useField = (type) => {
     setValue(event.target.value);
   };
 
-  return {
+  const clear = () => setValue("");
+
+  const getProps = () => ({
     type,
     value,
     onChange,
+  });
+
+  return {
+    getProps,
+    clear,
   };
 };
 
@@ -54,22 +61,25 @@ const App = () => {
 
   const handleNoteSubmit = (event) => {
     event.preventDefault();
-    noteService.create({ content: content.value });
+    noteService.create({ content: content.getProps().value });
+    content.clear();
   };
 
   const handlePersonSubmit = (event) => {
     event.preventDefault();
     personService.create({
-      name: name.value,
-      number: number.value,
+      name: name.getProps().value,
+      number: number.getProps().value,
     });
+    name.clear();
+    number.clear();
   };
 
   return (
     <div>
       <h2>notes</h2>
       <form onSubmit={handleNoteSubmit}>
-        <input {...content} required />
+        <input {...content.getProps()} required />
         <button type="submit">create</button>
       </form>
       {notes.map((n) => (
@@ -78,8 +88,8 @@ const App = () => {
 
       <h2>persons</h2>
       <form onSubmit={handlePersonSubmit}>
-        name <input {...name} required /> <br />
-        number <input {...number} required />
+        name <input {...name.getProps()} required /> <br />
+        number <input {...number.getProps()} required />
         <button type="submit">create</button>
       </form>
       {persons.map((n) => (
