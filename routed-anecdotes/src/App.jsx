@@ -26,7 +26,7 @@ const App = () => {
     },
   ]);
 
-  const [notification, setNotification] = useState("");
+  const [notification, setNotification] = useState(null);
 
   const match = useMatch("/anecdotes/:id");
   const anecdote = match
@@ -38,7 +38,7 @@ const App = () => {
     setAnecdotes(anecdotes.concat(anecdote));
     setNotification(`${anecdote.content} successfully created!`);
     setTimeout(() => {
-      setNotification("");
+      setNotification(null);
     }, 3000);
   };
 
@@ -56,7 +56,7 @@ const App = () => {
   }; */
 
   return (
-    <div>
+    <div className="container">
       <h1>Software anecdotes</h1>
       <Nav />
       <Notification notification={notification} />

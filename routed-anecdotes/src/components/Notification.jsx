@@ -1,9 +1,11 @@
-const Notification = ({ notification }) => {
-  if (notification === "") return null;
+import { Alert } from "react-bootstrap";
 
+const Notification = ({ notification }) => {
   return (
     <div>
-      <h4>{notification}</h4>
+      {notification && (
+        <Alert variant="success">{notification}</Alert>
+      )}
     </div>
   );
 };
