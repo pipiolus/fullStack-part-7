@@ -40,7 +40,7 @@ export const createBlog = (content) => {
       const newBlog = await blogService.createBlog(content);
       dispatch(appendNewBlog(newBlog));
     } catch (error) {
-      return error.response.data.error;
+      return error;
     }
   };
 };
@@ -56,7 +56,7 @@ export const addLike = (state, id) => {
       });
       dispatch(likeBlog(changedBlog.id));
     } catch (error) {
-      return error.response.data.error;
+      return error;
     }
   };
 };
@@ -68,7 +68,7 @@ export const deleteBlog = (state, id) => {
       await blogService.deleteBlog(blogToDelete.id);
       dispatch(removeBlog(blogToDelete.id));
     } catch (error) {
-      return error.response.data.error;
+      return error;
     }
   };
 };

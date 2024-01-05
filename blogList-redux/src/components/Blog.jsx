@@ -1,27 +1,45 @@
-import Togglable from "./Togglable";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addLike, deleteBlog } from "../reducers/blogsReducer";
 
-const Blog = ({ blog, user, addLike, removeBlog }) => {
+const Blog = ({ blog, blogs }) => {
+  const loggedUser = useSelector((state) => state.loggedUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  if (!blog) return null;
   return (
-    <div className="blog-container">
-      <h3 className="blogTitle">{blog.title}</h3>
-      <h4 className="blogAuthor">By {blog.author}</h4>
-      <Togglable buttonLabel="view" closeButtonLabel="hide">
-        <a className="blogUrl" href={blog.url}>
-          {blog.url}
-        </a>
-        <div className="likes">
-          <h4>Likes: {blog.likes}</h4>
-          <button className="likeButton" onClick={addLike}>
-            👍
+    <div>
+      <h3>{blog.title}</h3>
+      <h4>By {blog.author}</h4>
+      <a href={blog.url} target="blank">
+        {blog.url}
+      </a>
+      <div>
+        <h4>Likes: {blog.likes}</h4>
+        <button onClick={() => dispatch(addLike(blogs, blog.id))}>
+          👍
+        </button>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <p>added by {blog.user.username}</p>
+        {blog.user.username !== loggedUser.username ? null : (
+          <button
+            style={{ marginLeft: "0.3em" }}
+            onClick={() => {
+              dispatch(deleteBlog(blogs, blog.id));
+              navigate("/");
+            }}
+          >
+            delete
           </button>
-        </div>
-        <div className="created-by">
-          <p>created by {blog.user.username}</p>
-          {blog.user.username !== user.username ? null : (
-            <button onClick={removeBlog}>delete</button>
-          )}
-        </div>
-      </Togglable>
+        )}
+      </div>
     </div>
   );
 };

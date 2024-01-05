@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setUser } from "../reducers/userReducer";
+import { setUser } from "../reducers/loggedUserReducer";
 import { setNotification } from "../reducers/notificationReducer";
 import useField from "../hooks/useField";
 import blogService from "../services/blogs";
