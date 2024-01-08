@@ -1,30 +1,25 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { NavBar } from "./styles/NavStyle";
 
 const Nav = ({ handleLogout }) => {
   const loggedUser = useSelector((state) => state.loggedUser);
-  const style = {
-    display: "flex",
-    alignItems: "center",
-    backgroundColor: "#d1d5db",
-  };
 
   return (
-    <nav style={style}>
-      <Link to={"/"} style={{ padding: "0.5em" }}>
-        blogs
-      </Link>
-      <Link to={"/users"} style={{ padding: "0.5em" }}>
-        users
-      </Link>
-      <p>Logged as user: {loggedUser.username} </p>
-      <button
-        style={{ height: "2em", marginLeft: "0.5em" }}
-        onClick={handleLogout}
-      >
-        Logout
-      </button>
-    </nav>
+    <NavBar>
+      <div>
+        <Link to={"/"} style={{ padding: "0.5em" }}>
+          blogs
+        </Link>
+        <Link to={"/users"} style={{ padding: "0.5em" }}>
+          users
+        </Link>
+      </div>
+      <div>
+        <p>Logged as user: {loggedUser.username} </p>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+    </NavBar>
   );
 };
 

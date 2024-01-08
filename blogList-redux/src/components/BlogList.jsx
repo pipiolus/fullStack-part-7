@@ -1,23 +1,19 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { BlogsContainer } from "./styles/BlogContainerStyles";
+import { Blog } from "./styles/BlogListStyle";
 
 const BlogList = () => {
   const blogs = useSelector((state) => state.blogs);
 
   return (
-    <div className="blogs-container">
+    <BlogsContainer>
       {blogs.map((blog) => (
-        <div
-          style={{
-            border: "1px solid black",
-            height: "5vh",
-          }}
-          key={blog.id}
-        >
+        <Blog key={blog.id}>
           <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-        </div>
+        </Blog>
       ))}
-    </div>
+    </BlogsContainer>
   );
 };
 
